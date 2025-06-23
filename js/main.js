@@ -123,13 +123,13 @@ $(document).ready(function() {
         $("#dataTable tbody").html(html);
 
         
-        pagination = "<div id='pagination'><button id='firstPage' onclick='changePage("+page+",0)' disabled>First</button><button disabled id='previousPage' onclick='changePage("+page+",1)'>Previous</button>";
+        pagination = "<div id='pagination' class='d-flex'><button onclick='changePage("+page+",0)' disabled>First</button><button disabled onclick='changePage("+page+",1)'>Previous</button>";
         pagination += "<button class='selected' onclick='changePage("+page+",2)' disabled>"+page+"</button>";
         pagination += "<button onclick='changePage("+(page)+",2)'>"+(page+1)+"</button>";
         pagination += "<button onclick='changePage("+(page+1)+",2)'>"+(page+2)+"</button>";
         pagination += "<button onclick='changePage("+(page+2)+",2)'>"+(page+3)+"</button>";
         pagination += "<button onclick='changePage("+(page+3)+",2)'>"+(page+4)+"</button>";
-        pagination += "<button id='nextPage' onclick='changePage("+page+",2)'>Next</button><button id='lastPage' onclick='changePage("+page+",3)'>Last</button></div>";
+        pagination += "<button onclick='changePage("+page+",2)'>Next</button><button onclick='changePage("+page+",3)'>Last</button></div>";
         if (pageCount > 1) {
             $("#dataTable").append(pagination);
         }
