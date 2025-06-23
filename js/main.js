@@ -1,3 +1,39 @@
+$("form").submit(function(){
+    alert("Submitted");
+  });
+
+function sortBy(sort, direction){
+    switch (sort) {
+        case 0:
+            sortType = "id";
+            break;
+        case 1:
+            sortType = "title";
+            break;
+        case 2:
+            sortType = "completed";
+    }
+    //The api guide suggest using "views"/"-views" instead of ASC/DESC, I've tried a few differant ways but to no avail
+    // it might have been easier to pull all the rows at once and sort with jQuery, I don't think that'd show good practive however 
+    if(direction = 0) {
+        direction = "views";
+    } else {
+        direction = "-views";
+    }
+    $.ajax({url: "https://jsonplaceholder.typicode.com/todos?_page="+page+"&_per_page=10&_sort="+sortType+","+direction, success: function(result){
+        html ="";
+        $.each( result, function( key, value ) { 
+        html+= "<tr>"+
+            "<th>"+value['id']+"</th>"+
+            "<th class='text-capitalize'>"+value['title']+"</th>"+
+            "<th class='text-capitalize'>"+value['completed']+"</th>"+
+        +"</tr>"
+        });
+        $("#dataTable tbody").html(html);
+    }});
+}
+
+
 
 function changePage(currentpage, direction){
     switch (direction) {
