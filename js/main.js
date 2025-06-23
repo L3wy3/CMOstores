@@ -1,6 +1,23 @@
-$("form").submit(function(){
-    alert("Submitted");
-  });
+function search(){
+    query = $("#searchContainer input").val();
+    if(isNaN(query)) {
+        type="title";
+    } else {
+        type="id";
+    }
+    $.ajax({url: "https://jsonplaceholder.typicode.com/todos?"+type+"="+query+"", success: function(result){
+        html ="";
+        $.each( result, function( key, value ) { 
+        html+= "<tr>"+
+            "<th>"+value['id']+"</th>"+
+            "<th class='text-capitalize'>"+value['title']+"</th>"+
+            "<th class='text-capitalize'>"+value['completed']+"</th>"+
+        +"</tr>"
+        });
+        $("#dataTable tbody").html(html);
+    }});
+}
+
 
 function sortBy(sort, direction){
     switch (sort) {
