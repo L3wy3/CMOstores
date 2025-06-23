@@ -30,14 +30,23 @@ function changePage(currentpage, direction){
 
 function PaginationButtonUpdate(page) {
     if (page == 1) {
-        pagination = "<button id='firstPage' onclick='changePage("+page+",0)' disabled>First</button><button id='previousPage' onclick='changePage("+page+",1)' disabled>Previous</button>";
+        pagination = "<button onclick='changePage("+page+",0)' disabled>First</button><button onclick='changePage("+page+",1)' disabled>Previous</button>";
     } else {
-        pagination = "<button id='firstPage' onclick='changePage("+page+",0)'>First</button><button id='previousPage' onclick='changePage("+page+",1)'>Previous</button>";
+        pagination = "<button onclick='changePage("+page+",0)'>First</button><button onclick='changePage("+page+",1)'>Previous</button>";
     }
+
+    if(page-1>0) {
+    pagination += "<button onclick='changePage("+(page-2)+",2)'>"+(page-1)+"</button>";
+    }
+    pagination += "<button class='selected' onclick='changePage("+page+",2)' disabled>"+page+"</button>";
+    if(page < pageCount) {
+    pagination += "<button onclick='changePage("+(page)+",2)'>"+(page+1)+"</button>";
+    }
+
     if (page == pageCount) {
-        pagination += "<button id='nextPage' onclick='changePage("+page+",2)' disabled>Next</button><button id='lastPage' onclick='changePage("+page+",3)' disabled>Last</button>";
+        pagination += "<button onclick='changePage("+page+",2)' disabled>Next</button><button onclick='changePage("+page+",3)' disabled>Last</button>";
     } else {
-        pagination += "<button id='nextPage' onclick='changePage("+page+",2)'>Next</button><button id='lastPage' onclick='changePage("+page+",3)'>Last</button>";
+        pagination += "<button onclick='changePage("+page+",2)'>Next</button><button onclick='changePage("+page+",3)'>Last</button>";
     }
     $("#pagination").html(pagination);
 }
@@ -60,7 +69,13 @@ $(document).ready(function() {
         });
         $("#dataTable tbody").html(html);
 
+        
         pagination = "<div id='pagination'><button id='firstPage' onclick='changePage("+page+",0)' disabled>First</button><button disabled id='previousPage' onclick='changePage("+page+",1)'>Previous</button>";
+        pagination += "<button class='selected' onclick='changePage("+page+",2)' disabled>"+page+"</button>";
+        pagination += "<button onclick='changePage("+(page)+",2)'>"+(page+1)+"</button>";
+        pagination += "<button onclick='changePage("+(page+1)+",2)'>"+(page+2)+"</button>";
+        pagination += "<button onclick='changePage("+(page+2)+",2)'>"+(page+3)+"</button>";
+        pagination += "<button onclick='changePage("+(page+3)+",2)'>"+(page+4)+"</button>";
         pagination += "<button id='nextPage' onclick='changePage("+page+",2)'>Next</button><button id='lastPage' onclick='changePage("+page+",3)'>Last</button></div>";
         if (pageCount > 1) {
             $("#dataTable").append(pagination);
